@@ -2,23 +2,19 @@
 var txtStr = document.getElementById("txtStr");
 var btnChange = document.getElementById("btnChange");
 var result = document.getElementById("result");
-var txtStrValue = txtStr.value.toUpperCase();
 
 btnChange.addEventListener("click", function() { 
-result.innerHTML = txtChanger(txtStrValue); });
-txtStr.addEventListener("onkeydown", keyUpHandler);
+result.innerHTML = txtChanger(txtStr.Value); });
+txtStr.addEventListener("keyup", keyUpHandler);
+txtStr.addEventListener("keydown", keyDownHandler);
+
 
 function reversal(_str) {
-	var tmpStr = "";
-
-	for (i=_str.length - 1;i > -1; i--) {
-		tmpStr += _str.charAt(i);
-
-	}
-	return tmpStr;
+	return _str.split("").reverse().join().replace(/,/g, '');
 }
 
 function alphabits(_str) {
+
 	_str = _str.split('');
 	_str = _str.sort();
 	_str = _str.toString();
@@ -26,15 +22,14 @@ function alphabits(_str) {
 }
 
 function palindrome(_str, _revStr) {
-	// _str = _str.toUppercase();
-	// _revStr = _revStr.toUpper
 	palBool = (_str.toUpperCase() === _revStr.toUpperCase());
 	
 	return palBool;
 }
 
-function txtChanger(testString) {
-	 
+function txtChanger () {
+
+	var testString = txtStr.value;
 	var revStr = reversal(testString);
 	var alphaOrderStr = alphabits(testString);
 	var palBool = palindrome(testString, revStr);
@@ -55,7 +50,16 @@ function txtChanger(testString) {
 }
 
 function keyUpHandler (e) {
-	console.log("e:", e);
-	result.innerHTML = "e:" + e;
+	var code = e.keyCode;
+	if (code == 13) { 
+		e.preventDefault()
+		result.innerHTML = txtChanger(txtStr.Value);
+ 	}
+ }
 
-}
+function keyDownHandler (e) {
+	var code = e.keyCode;
+	if (code == 13) { 
+		e.preventDefault()
+ 	}
+ }
